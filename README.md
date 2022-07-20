@@ -4,7 +4,7 @@ Install Kubeflow on Ubuntu 22.04
 
 # Set the env
 
-[docker](https://docs.docker.com/)
+[docker](https://docs.docker.com/desktop/install/ubuntu/)
 
 [minikube](https://github.com/kubernetes/minikube/releases/tag/v1.22.0)
 
