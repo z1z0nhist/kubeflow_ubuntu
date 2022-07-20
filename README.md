@@ -35,6 +35,10 @@ while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply
 
 ```
 kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
+
+# Login
+user@example.com
+12341234
 ```
 
 # Info
