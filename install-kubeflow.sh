@@ -48,5 +48,8 @@ kustomize build apps/volumes-web-app/upstream/overlays/istio | kubectl apply -f 
 kustomize build apps/tensorboard/tensorboards-web-app/upstream/overlays/istio | kubectl apply -f -
 kustomize build apps/tensorboard/tensorboard-controller/upstream/overlays/kubeflow | kubectl apply -f -
 
+# training operator
+kustomize build apps/training-operator/upstream/overlays/kubeflow | kubectl apply -f -
+
 # user namespace
 kustomize build common/user-namespace/base | kubectl apply -f -
