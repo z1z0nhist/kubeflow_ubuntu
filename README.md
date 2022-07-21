@@ -33,7 +33,7 @@ git clone https://github.com/kubeflow/manifests.git
 cd manifests
 git checkout v1.5-branch
 chmod +x install-kubeflow.sh
-./install-kubeflow.sh
+while ! ./install-kubeflow.sh; do echo "Retrying to apply resources"; sleep 10; done
 ```
 
 # Kubeflow local host
