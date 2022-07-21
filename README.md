@@ -33,7 +33,7 @@ sudo mv kustomize_3.2.0_linux_amd64 /usr/local/bin/kustomize
 ```
 git clone https://github.com/kubeflow/manifests.git
 cd manifests
-git checkout v1.5-branch
+git checkout v1.5-branch(kubeflow 버전 변경)
 chmod +x install-kubeflow.sh
 while ! ./install-kubeflow.sh; do echo "Retrying to apply resources"; sleep 10; done
 ```
