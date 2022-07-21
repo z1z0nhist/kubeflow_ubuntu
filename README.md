@@ -8,6 +8,10 @@ Install Kubeflow on Ubuntu 22.04
 
 [minikube](https://github.com/kubernetes/minikube/releases/tag/v1.22.0)
 
+```
+minikube start --driver=docker --disk-size=100g --kubernetes-version=1.21.2 --memory=8g --cpus=8 --profile minikube
+```
+
 [kubectl](https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-linux/)
 
 ```
@@ -27,10 +31,11 @@ sudo mv kustomize_3.2.0_linux_amd64 /usr/local/bin/kustomize
 ```
 git clone https://github.com/kubeflow/manifests.git
 cd manifests
-
-# until Success
-while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
+git checkout v1.5-branch
+chmod +x install-kubeflow.sh
+./install-kubeflow.sh
 ```
+
 # Kubeflow local host
 
 ```
