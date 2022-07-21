@@ -9,7 +9,7 @@ Install Kubeflow on Ubuntu 22.04
 [minikube](https://github.com/kubernetes/minikube/releases/tag/v1.22.0)
 
 ```
-minikube start --driver=docker --disk-size=100g --kubernetes-version=1.21.2 --memory=8g --cpus=8 --profile minikube
+minikube start --driver=docker --disk-size=100g --kubernetes-version=1.20.15 --memory=8g --cpus=8 --profile minikube
 ```
 
 [kubectl](https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-linux/)
@@ -39,7 +39,7 @@ kubectl -n auth rollout restart deployment dex
 ```
 git clone https://github.com/kubeflow/manifests.git
 cd manifests
-git checkout v1.5-branch(kubeflow 버전 변경)
+git checkout v1.4-branch(kubeflow 버전 변경)
 chmod +x install-kubeflow.sh
 ./install-kubeflow.sh
 ```
