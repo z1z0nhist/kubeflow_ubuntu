@@ -31,6 +31,7 @@ sudo mv kustomize_3.2.0_linux_amd64 /usr/local/bin/kustomize
 ```
 manifests/common/user-namespace/base/params.env
 manifests/common/dex/base/config-map.yaml
+kubectl -n auth rollout restart deployment dex 
 ```
 
 [kubeflow/manifests](https://github.com/kubeflow/manifests)
