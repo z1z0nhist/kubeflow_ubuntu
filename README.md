@@ -46,6 +46,25 @@ user@example.com
 12341234
 ```
 
+# Kubectl 명령어
+
+```
+# 쿠버네티스 파드 확인
+kubectl get pods -A
+
+# 파드 상태 실시간 확인
+watch kubectl get pods -A 
+
+# 파드 상태 변경될때마다 상태 확인
+kubectl get po -A -w
+
+# namespace별 pod 확인
+kubectl get po -n {namespace}
+
+# 삭제
+kubectl delete namespace {삭제할 namespace}
+```
+
 # Info
 
 |Tool|Version|
