@@ -16,6 +16,8 @@ minikube start --driver=docker --disk-size=100g --kubernetes-version=1.21.2 --me
 
 ```
 curl -LO https://dl.k8s.io/release/v1.21.2/bin/linux/amd64/kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
 ```
 
 [kustomize](https://kubectl.docs.kubernetes.io/guides/introduction/kustomize/)
