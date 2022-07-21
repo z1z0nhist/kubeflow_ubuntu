@@ -63,7 +63,13 @@ kubectl get po -A -w
 # namespace별 pod 확인
 kubectl get po -n {namespace}
 
-# 삭제
+# pod 삭제
+kubectl delete pod <pod_name> -n <namespace>
+
+# 강제종료
+kubectl delete pod <pod_name> -n <namespace> --grace-period 0 --force
+
+# namespace 삭제
 kubectl delete namespace {삭제할 namespace}
 ```
 
