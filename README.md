@@ -43,8 +43,7 @@ kubectl -n auth rollout restart deployment dex
 git clone https://github.com/kubeflow/manifests.git
 cd manifests
 git checkout v1.4-branch(kubeflow 버전 변경)
-chmod +x install-kubeflow.sh
-./install-kubeflow.sh
+while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 ```
 
 # Kubeflow local host
