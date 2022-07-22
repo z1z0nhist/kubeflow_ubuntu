@@ -6,6 +6,20 @@ Install Kubeflow on Ubuntu 22.04
 
 [docker](https://docs.docker.com/desktop/install/ubuntu/)
 
+```
+# gpu 도커 기본설정
+# /etc/docker/daemon.json
+{
+  "default-runtime": "nvidia",
+  "runtimes": {
+      "nvidia": {
+          "path": "nvidia-container-runtime",
+          "runtimeArgs": []
+   }
+  }
+}
+```
+
 [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
 ```
