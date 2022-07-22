@@ -94,6 +94,9 @@ kubectl delete pod <pod_name> -n <namespace> --grace-period 0 --force
 
 # namespace 삭제
 kubectl delete namespace {삭제할 namespace}
+
+# service list
+minikube service list -n istio-system
 ```
 
 # 로그인 추가
