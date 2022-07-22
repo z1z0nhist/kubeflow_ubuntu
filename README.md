@@ -90,3 +90,6 @@ kubectl delete namespace {삭제할 namespace}
 |minikube|1.22.0|
 |kubernetes|1.21.2|
 |kustomize|3.2.0|
+
+# Reference
+https://github.com/kubeflow/manifests
