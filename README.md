@@ -6,10 +6,10 @@ Install Kubeflow on Ubuntu 22.04
 
 [docker](https://docs.docker.com/desktop/install/ubuntu/)
 
-[minikube](https://github.com/kubernetes/minikube/releases/tag/v1.22.0)
+[minikube](https://minikube.sigs.k8s.io/docs/start/)
 
 ```
-curl -LO https://storage.googleapis.com/minikube/releases/v1.19.0/minikube-linux-amd64
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 minikube start --driver=docker --disk-size=100g --kubernetes-version=1.20.2 --memory=8g --cpus=8 --profile test
@@ -19,7 +19,7 @@ minikube config set profile test
 [kubectl](https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-linux/)
 
 ```
-curl -LO https://dl.k8s.io/release/v1.20.2/bin/linux/amd64/kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 ```
