@@ -2,12 +2,12 @@
 
 Install Kubeflow on Ubuntu 22.04
 
-# Set the env
+# Set env
 
 [docker](https://docs.docker.com/desktop/install/ubuntu/)
 
+#### (optional)gpu docker
 ```
-# gpu 도커 기본설정
 # /etc/docker/daemon.json
 {
   "default-runtime": "nvidia",
@@ -29,6 +29,44 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 minikube start --driver=docker --disk-size=100g --kubernetes-version=1.21.0 --memory=4g --cpus=4
 (optional)minikube config set profile test
 ```
+
+#### (optional)minikube cuda
+
+kubeflow가 kubernetes 위에서 작동하므로 minikube에 cuda 환경이 배포되어야 사용 가능
+
+```
+sudo apt install conntrack
+minikube start --driver=none --kubernetes-version=v1.21.0
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/master/nvidia-device-plugin.yml
+kubectl get pod -A | grep nvidia
+kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu"
+
+vim gpu-container.yaml
+# in gpu-container.yaml
+# caution cuda version
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu
+spec:
+  containers:
+  - name: gpu-container
+    image: nvidia/cuda:11.0-runtime
+    command:
+      - "/bin/sh"
+      - "-c"
+    args:
+      - nvidia-smi && tail -f /dev/null
+    resources:
+      requests:
+        nvidia.com/gpu: 1
+      limits:
+        nvidia.com/gpu: 1
+#
+kubectl create -f gpu-contianer.yaml
+kubectl logs gpu
+```
+
 
 [kubectl](https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-linux/)
 
@@ -58,10 +96,12 @@ kubectl -n auth rollout restart deployment dex
 git clone https://github.com/kubeflow/manifests.git
 cd manifests
 git checkout v1.4-branch(kubeflow 버전 변경)
+
+# 아래 명령어는 작동 순서에 예민하므로 성공할 때까지 기다린다
 while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 ```
 
-# Kubeflow local host
+#### (optional)Kubeflow local host
 
 ```
 kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
@@ -71,35 +111,7 @@ user@example.com
 12341234
 ```
 
-# Kubectl 명령어
-
-```
-# 쿠버네티스 파드 확인
-kubectl get pods -A
-
-# 파드 상태 실시간 확인
-watch kubectl get pods -A 
-
-# 파드 상태 변경될때마다 상태 확인
-kubectl get po -A -w
-
-# namespace별 pod 확인
-kubectl get po -n {namespace}
-
-# pod 삭제
-kubectl delete pod <pod_name> -n <namespace>
-
-# 강제종료
-kubectl delete pod <pod_name> -n <namespace> --grace-period 0 --force
-
-# namespace 삭제
-kubectl delete namespace {삭제할 namespace}
-
-# service list
-minikube service list -n istio-system
-```
-
-# 로그인 추가
+#### (optional)add user
 ```
 # manifests/common/dex/base/comnfig-map.yaml
 
@@ -141,7 +153,7 @@ data:
       secretEnv: OIDC_CLIENT_SECRET
 ```
 
-# namespace 설정
+#### (optional)namespace 설정
 
 ```
 # manifests/common/user-namespace/base/params.env
@@ -150,14 +162,40 @@ user=dev7halo@gmail.com
 profile-name=krkim
 ```
 
+# 명령어
+
+```
+# 쿠버네티스 파드 확인
+kubectl get pods -A
+watch kubectl get pods -A 
+kubectl get po -A -w
+
+# namespace별 pod 확인
+kubectl get po -n {namespace}
+
+# pod 삭제
+kubectl delete pod <pod_name> -n <namespace>
+
+# 강제종료
+kubectl delete pod <pod_name> -n <namespace> --grace-period 0 --force
+
+# namespace 삭제
+kubectl delete namespace {삭제할 namespace}
+
+# minikube service list
+minikube service list -n istio-system
+```
+
 # Info
 
 |Tool|Version|
 |----------|------|
 |Ubuntu|22.04|
-|minikube|1.22.0|
-|kubernetes|1.21.2|
-|kustomize|3.2.0|
+|minikube|v1.26.0|
+|kubernetes|v1.21.0|
+|kustomize|v3.2.0|
 
 # Reference
 https://github.com/kubeflow/manifests
+
+https://velog.io/@moey920/Minikube-Nvidia-GPU-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
