@@ -37,7 +37,7 @@ kubeflow가 kubernetes 위에서 작동하므로 minikube에 cuda 환경이 배�
 ```
 sudo apt install conntrack
 sudo apt install socat
-minikube start --driver=none --kubernetes-version=v1.21.0
+minikube start --driver=none --kubernetes-version=1.21.0
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/master/nvidia-device-plugin.yml
 kubectl get pod -A | grep nvidia
 kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu"
