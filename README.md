@@ -42,8 +42,8 @@ kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/mas
 kubectl get pod -A | grep nvidia
 kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu"
 
-vim gpu-container.yaml
-# in gpu-container.yaml
+vim gpu.yaml
+# in gpu.yaml
 # caution cuda version
 apiVersion: v1
 kind: Pod
@@ -64,7 +64,7 @@ spec:
       limits:
         nvidia.com/gpu: 1
 #
-kubectl create -f gpu-contianer.yaml
+kubectl create -f gpu.yaml
 kubectl logs gpu
 ```
 
