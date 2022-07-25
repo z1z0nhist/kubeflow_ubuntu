@@ -174,6 +174,9 @@ kubectl get po -A -w
 # namespace별 pod 확인
 kubectl get po -n {namespace}
 
+# pod 재생성
+kubectl get pod <pod_name> -n <namespace> -o yaml | kubectl replace --force -f-
+
 # pod 삭제
 kubectl delete pod <pod_name> -n <namespace>
 
