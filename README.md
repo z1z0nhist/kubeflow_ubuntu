@@ -201,6 +201,8 @@ minikube service list -n istio-system
 |minikube|v1.26.0|
 |kubernetes|v1.21.0|
 |kustomize|v3.2.0|
+|cuda|11.4|
+
 
 # 겪었던 문제
 
