@@ -45,6 +45,7 @@ kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable
 vim gpu.yaml
 # in gpu.yaml
 # caution cuda version
+# 이미지가 본인의 환경에 맞는 cuda 환경을 설정해 주어야 합니다.
 apiVersion: v1
 kind: Pod
 metadata:
@@ -52,7 +53,7 @@ metadata:
 spec:
   containers:
   - name: gpu-container
-    image: nvidia/cuda:11.0-runtime
+    image: nvidia/cuda:11.4.2-runtime-ubuntu18.04
     command:
       - "/bin/sh"
       - "-c"
