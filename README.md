@@ -100,10 +100,10 @@ cd manifests
 git checkout v1.4-branch(kubeflow 버전 변경)
 
 # 아래 명령어는 작동 순서에 예민하므로 성공할 때까지 기다린다
+while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 # 이유를 모르겠으나 이렇게 설치하면 파드가 잘 생성이 안됩니다.
 # 아래 참조처럼 한개씩 설치합시다 
 # (참조)[https://mlops-for-all.github.io/docs/setup-components/install-components-kf/#cert-manager]
-while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
 ```
 
 #### (optional)Kubeflow local host
