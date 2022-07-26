@@ -167,6 +167,35 @@ user=dev7halo@gmail.com
 profile-name=krkim
 ```
 
+# kfp 사용하기
+```
+import kfp
+import requests
+
+USERNAME = "dev7halo@gmail.com"
+PASSWORD = "    "
+NAMESPACE = "krkim"
+HOST = "http://10.23.13.113:31265" # istio-ingressgateway's external-ip created by the load balancer.
+
+session = requests.Session()
+response = session.get(HOST)
+
+headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+}
+
+data = {"login": USERNAME, "password": PASSWORD}
+session.post(response.url, headers=headers, data=data)
+session_cookie = session.cookies.get_dict()["authservice_session"]
+
+client = kfp.Client(
+    host=f"{HOST}/pipeline",
+    namespace=f"{NAMESPACE}",
+    cookies=f"authservice_session={session_cookie}",
+)
+print(client.list_pipelines())
+```
+
 # 명령어
 
 ```
