@@ -247,3 +247,5 @@ https://github.com/kubeflow/manifests
 https://velog.io/@moey920/Minikube-Nvidia-GPU-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
 
 https://otzslayer.github.io/kubeflow/2022/06/11/could-not-find-csrf-cookie-xsrf-token-in-the-request.html
+
+[모두의 MLOps](https://mlops-for-all.github.io/docs/setup-components/install-components-kf/)
