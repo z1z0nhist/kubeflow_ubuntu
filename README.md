@@ -118,7 +118,7 @@ user@example.com
 
 #### (optional)add user
 ```
-# manifests/common/dex/base/comnfig-map.yaml
+# manifests/common/dex/base/config-map.yaml
 # hash는 접속시 비밀번호인데 Bcrypt를 통해 암호화 시킨 값을 넣어야 한다.
 apiVersion: v1
 kind: ConfigMap
