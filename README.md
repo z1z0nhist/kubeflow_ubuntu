@@ -239,7 +239,8 @@ minikube service list -n istio-system
 - 회사 이메일에 . 이 들어가는데 yaml 파일에서 .이 들어가면 문제가 생겨서 삽질
 - on-premise로 구축하려니 쿠버네티스 생태계에 이해를 못해서 gpu 자원 활용에 문제
 - on-premise로 구축하고 localhost에서 jupyter notebook에서 kubeflow pipe라인을 작성하니 토큰 문제(client에 localhost:port를 넣어서 해결)
-- Could not find CSRF cookie XSRF-TOKEN in the request(참조3)
+- Could not find CSRF cookie XSRF-TOKEN in the request(참조3)\
+- 재부팅시 gpu pod가 생성이 안되는 문제 (참조)[https://my-grope-log.tistory.com/20]
 
 # Reference
 https://github.com/kubeflow/manifests
