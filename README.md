@@ -51,19 +51,14 @@ kind: Pod
 metadata:
   name: gpu
 spec:
+  restartPolicy: OnFailure
   containers:
-  - name: gpu-container
-    image: nvidia/cuda:11.4.2-runtime-ubuntu18.04
-    command:
-      - "/bin/sh"
-      - "-c"
-    args:
-      - nvidia-smi && tail -f /dev/null
-    resources:
-      requests:
-        nvidia.com/gpu: 1
-      limits:
-        nvidia.com/gpu: 1
+    - name: cuda-container
+      image: nvidia/cuda:11.4.2-runtime-ubuntu18.04
+      command: ["nvidia-smi"]
+      resources:
+        limits:
+          nvidia.com/gpu: 1 # requesting 1 GPU
 #
 kubectl create -f gpu.yaml
 kubectl logs gpu
