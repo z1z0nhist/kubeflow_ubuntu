@@ -7,7 +7,7 @@ Install Kubeflow on Ubuntu 22.04
 [docker](https://docs.docker.com/desktop/install/ubuntu/)
 
 #### (optional)gpu docker
-```
+```json
 # /etc/docker/daemon.json
 {
   "default-runtime": "nvidia",
@@ -22,7 +22,7 @@ Install Kubeflow on Ubuntu 22.04
 
 [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
-```
+```bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
@@ -34,15 +34,17 @@ minikube start --driver=docker --disk-size=100g --kubernetes-version=1.21.0 --me
 
 kubeflow가 kubernetes 위에서 작동하므로 minikube에 cuda 환경이 배포되어야 사용 가능
 
-```
+```bash
 sudo apt install conntrack
 sudo apt install socat
 minikube start --driver=none --kubernetes-version=1.21.0
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/master/nvidia-device-plugin.yml
 kubectl get pod -A | grep nvidia
 kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu"
+```
 
-vim gpu.yaml
+```yaml
+# vim gpu.yaml
 # in gpu.yaml
 # caution cuda version
 # 이미지가 본인의 환경에 맞는 cuda 환경을 설정해 주어야 합니다.
@@ -67,7 +69,7 @@ kubectl logs gpu
 
 [kubectl](https://kubernetes.io/ko/docs/tasks/tools/install-kubectl-linux/)
 
-```
+```bash
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
@@ -75,13 +77,13 @@ kubectl version --client
 
 [kustomize](https://kubectl.docs.kubernetes.io/guides/introduction/kustomize/)
 
-```
+```bash
 wget https://github.com/kubernetes-sigs/kustomize/releases/download/v3.2.0/kustomize_3.2.0_linux_amd64
 chmod +x kustomize_3.2.0_linux_amd64
 sudo mv kustomize_3.2.0_linux_amd64 /usr/local/bin/kustomize
 ```
 
-```
+```bash
 manifests/common/user-namespace/base/params.env
 manifests/common/dex/base/config-map.yaml
 kubectl -n auth rollout restart deployment dex 
@@ -89,7 +91,7 @@ kubectl -n auth rollout restart deployment dex
 
 [kubeflow/manifests](https://github.com/kubeflow/manifests)
 
-```
+```bash
 git clone https://github.com/kubeflow/manifests.git
 cd manifests
 git checkout v1.4-branch(kubeflow 버전 변경)
@@ -103,7 +105,7 @@ while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply
 
 #### (optional)Kubeflow local host
 
-```
+```bash
 kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
 
 # Login
@@ -112,7 +114,8 @@ user@example.com
 ```
 
 #### (optional)add user
-```
+
+```yaml
 # manifests/common/dex/base/config-map.yaml
 # hash는 접속시 비밀번호인데 Bcrypt를 통해 암호화 시킨 값을 넣어야 한다.
 apiVersion: v1
@@ -155,7 +158,7 @@ data:
 
 #### (optional)namespace 설정
 
-```
+```bash
 # manifests/common/user-namespace/base/params.env
 
 user=dev7halo@gmail.com
@@ -163,7 +166,8 @@ profile-name=krkim
 ```
 
 # kfp 사용하기
-```
+
+```python
 import kfp
 import requests
 
